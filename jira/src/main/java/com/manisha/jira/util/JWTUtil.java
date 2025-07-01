@@ -1,14 +1,14 @@
 package com.manisha.jira.util;
 
 import io.jsonwebtoken.Jwts;
-import lombok.Value;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import java.security.Signature;
 import java.util.Date;
 @Component
-public class JWTutil
+public class JWTUtil
 {
     @Value("${jwt.secret}")
     private String secret;
@@ -18,7 +18,7 @@ public class JWTutil
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() +1000 *60*60*24))
-                .signWith(SignatureAlgorithm.HS256.secret)
+                .signWith(SignatureAlgorithm.HS256,secret)
                 .compact();
         }
         public String extractUsername(String token){
@@ -28,8 +28,9 @@ public class JWTutil
                  .getBody()
                  .getSubject();
     }
-    public boolean validateToken(String token,UserDetails userDetails){
+    public boolean validateToken(String token,UserDetails userdetails){
         String username = extractUsername(token);
-        return username.equals((userdetails.getUsername()));
+
+        return username.equals(userdetails.getUsername());
     }
 }
