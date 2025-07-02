@@ -1,12 +1,12 @@
 package com.manisha.jira.entity;
 
-import jakarta.annotation.Priority;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.User;
+import com.manisha.jira.entity.User;
 
 import java.time.LocalDateTime;
 
