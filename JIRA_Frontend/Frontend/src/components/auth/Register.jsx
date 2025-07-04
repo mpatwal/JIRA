@@ -35,17 +35,8 @@ export const Register = () => {
       <div className="absolute top-20 left-20 w-32 h-32 bg-blue-500/20 rounded-full blur-2xl z-0"></div>
       <div className="absolute bottom-20 right-32 w-40 h-40 bg-purple-500/20 rounded-full blur-2xl z-0"></div>
       <div className="absolute top-1/2 left-10 w-24 h-24 bg-indigo-500/20 rounded-full blur-2xl z-0"></div>
-      {/* Top Centered Heading - always visible */}
-      <div className="min-h-screen pt-24 flex justify-center items-center relative z-50">
-  <div className="text-center inline-block px-4 py-2 rounded-lg bg-black/70 backdrop-blur-sm">
-    <h1 className="text-3xl font-extrabold text-white tracking-wide uppercase drop-shadow-lg"
-      style={{ textShadow: '1px 1px 4px #000, 0 2px 8px #222' }}>
-      JIRA APPLICATION
-    </h1>
-    <div className="mt-2 h-1 w-24 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
-  </div>
-</div>
-
+      
+      
       {/* Main Content: Register Form Centered Right */}
       <div className="relative z-20 flex flex-1 items-center justify-end pr-8 md:pr-16 pb-8">
         <div className="bg-white/95 backdrop-blur-lg p-8 rounded-2xl shadow-2xl border border-white/20 max-w-md w-full mx-4 hover:shadow-3xl transition-all duration-300">

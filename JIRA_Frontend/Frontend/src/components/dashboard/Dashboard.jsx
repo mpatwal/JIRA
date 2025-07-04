@@ -1,14 +1,31 @@
-// Dashboard.jsx
-import React from 'react';
+import React from "react";
+import { CCard, CCardBody, CCardHeader, CRow, CCol } from "@coreui/react";
 
-const Dashboard = () => {
-  const token = localStorage.getItem("token"); // ✅ Access JWT token if needed
+const DashboardUI = ({ data }) => {
+  // Show loading or fallback if data is not yet loaded
+  if (!data) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-green-100">
-      <h1 className="text-4xl font-bold mb-4 text-green-800">Welcome to Dashboard</h1>
-    </div>
+    <CRow>
+      <CCol sm={6} lg={3}>
+        <CCard>
+          <CCardHeader>User Role</CCardHeader>
+          <CCardBody>{data.role}</CCardBody>
+        </CCard>
+      </CCol>
+      {data.metrics &&
+        Object.entries(data.metrics).map(([key, value]) => (
+          <CCol sm={6} lg={3} key={key}>
+            <CCard>
+              <CCardHeader>{key}</CCardHeader>
+              <CCardBody>{value}</CCardBody>
+            </CCard>
+          </CCol>
+        ))}
+    </CRow>
   );
 };
 
-export default Dashboard;
+export default DashboardUI;

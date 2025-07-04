@@ -1,70 +1,71 @@
-// Login.jsx
-import React, { useState } from 'react';
-import axios from 'axios';
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-
-const Login = () => {
-  // 🔸 State to store email and password
-  const [loginData, setLoginData] = useState({
-    username: '',
-    password: '',
+import { Link } from "react-router-dom";
+import mybg from './bk.jpg';
+export const Login = () => {
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
   });
+const navigate = useNavigate();
 
-  const navigate = useNavigate(); // 🔸 used to redirect user after successful login
-
-  // 🔸 Handle input changes and update state
   const handleChange = (e) => {
-    setLoginData({ ...loginData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  // 🔸 Send login request to backend
-  const handleLogin = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      // 🔸 Send login data to backend
-      const res = await axios.post("http://localhost:8081/api/auth/login", loginData);
 
-      // 🔸 Save JWT token to localStorage
-      localStorage.setItem("token", res.data.token);
+    try {
+      const response = await fetch("http://localhost:8081/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+        navigate("/dashboard");
+      if (!response.ok) {
+        throw new Error(`Login failed! status: ${response.status}`);
+      }
+
+      const data = await response.json(); 
+      console.log("Login Success. Token:", data.token);
+
+      
+      localStorage.setItem("token", data.token);
 
       alert("Login successful!");
-
-      // 🔸 Redirect user to dashboard
-      navigate("/dashboard");
-    } catch (err) {
-      console.error("Login failed", err);
-      alert("Invalid username or password");
+    } catch (error) {
+      console.error("Login Error:", error);
+      alert("Invalid credentials.");
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center p-4">
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full opacity-20 blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-indigo-400 to-pink-400 rounded-full opacity-20 blur-3xl"></div>
-      </div>
-      
-      <div className="relative w-full max-w-md">
-        {/* Main login card */}
-        <div className="bg-white/80 backdrop-blur-lg p-8 rounded-2xl shadow-2xl border border-white/20 hover:shadow-3xl transition-all duration-300">
-          {/* Header */}
+    <div style={{ backgroundImage: `url(${mybg})` }}
+      className="min-h-screen w-full bg-cover bg-center bg-no-repeat bg-fixed flex flex-col relative overflow-hidden"
+    >
+      <div className="relative z-20 flex flex-1 items-center justify-end pr-8 md:pr-16 pb-8">
+        <div className="bg-white/95 backdrop-blur-lg p-8 rounded-2xl shadow-2xl border border-white/20 max-w-md w-full mx-4 hover:shadow-3xl transition-all duration-300">
+          {/* Form Header */}
           <div className="text-center mb-8">
             <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
               <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
               </svg>
             </div>
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Welcome Back
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+              Login
             </h2>
-            <p className="text-gray-600 mt-2">Sign in to your account</p>
+        
           </div>
-
-          {/* Form */}
-          <form onSubmit={handleLogin} className="space-y-6">
-            {/* Username field */}
-            <div className="group">
+      <form className="space-y-5" onSubmit={handleSubmit}>
+        <div className="group">
               <label htmlFor="username" className="block text-sm font-semibold text-gray-700 mb-2">
                 Username
               </label>
@@ -73,22 +74,21 @@ const Login = () => {
                   type="text"
                   id="username"
                   name="username"
-                  value={loginData.username}
+                  value={formData.username}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 pl-12 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 group-hover:border-gray-300"
+                  className="block w-full bg-gray-50 border border-gray-200 rounded-xl shadow-sm px-4 py-3 pl-12 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 group-hover:border-gray-300"
                   placeholder="Enter your username"
                 />
                 <div className="absolute left-4 top-3.5 text-gray-400">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                   </svg>
                 </div>
               </div>
             </div>
 
-            {/* Password field */}
-            <div className="group">
+        <div className="group">
               <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-2">
                 Password
               </label>
@@ -97,11 +97,11 @@ const Login = () => {
                   type="password"
                   id="password"
                   name="password"
-                  value={loginData.password}
+                  value={formData.password}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 pl-12 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 group-hover:border-gray-300"
-                  placeholder="Enter your password"
+                  className="block w-full bg-gray-50 border border-gray-200 rounded-xl shadow-sm px-4 py-3 pl-12 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 group-hover:border-gray-300"
+                  placeholder="Your password"
                 />
                 <div className="absolute left-4 top-3.5 text-gray-400">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -111,37 +111,27 @@ const Login = () => {
               </div>
             </div>
 
-            {/* Submit button */}
-            <button
-              type="submit"
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-6 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 focus:ring-4 focus:ring-blue-300 focus:outline-none"
-            >
-              <span className="flex items-center justify-center">
-                Sign In
-                <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </span>
-            </button>
-          </form>
-
-          {/* Footer */}
-          <div className="mt-8 text-center">
-            <p className="text-sm text-gray-600">
+        <button
+          type="submit"
+          className="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700"
+        >
+          Login
+        </button>
+      </form>
+      {/* Footer */}
+          <div className="mt-6 text-center">
+            <p className="text-gray-600">
               Don't have an account?{' '}
-              <a href="#" className="text-blue-600 hover:text-purple-600 font-semibold transition-colors">
-                Sign up
-              </a>
+              <Link
+                to="/"
+                className="text-blue-600 hover:text-purple-600 font-semibold transition-colors hover:underline"
+              >
+                Sign Up
+              </Link>
             </p>
           </div>
-        </div>
-
-        {/* Additional decorative elements */}
-        <div className="absolute -top-2 -left-2 w-4 h-4 bg-blue-400 rounded-full opacity-60"></div>
-        <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-purple-400 rounded-full opacity-60"></div>
-      </div>
+    </div>
+    </div>
     </div>
   );
 };
-
-export default Login;
