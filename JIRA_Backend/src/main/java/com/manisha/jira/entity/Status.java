@@ -1,5 +1,5 @@
 package com.manisha.jira.entity;
 
 public enum Status {
-    Open,Ready,In_Progress,Done
+    OPEN,READY,IN_PROGRESS,DONE
 }
