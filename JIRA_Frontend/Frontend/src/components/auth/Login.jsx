@@ -28,16 +28,18 @@ const navigate = useNavigate();
         },
         body: JSON.stringify(formData),
       });
-        navigate("/dashboard");
+      
       if (!response.ok) {
         throw new Error(`Login failed! status: ${response.status}`);
       }
 
       const data = await response.json(); 
       console.log("Login Success. Token:", data.token);
-
+      console.log(data)
       
-      localStorage.setItem("token", data.token);
+      localStorage.setItem("token",data.token);
+      localStorage.setItem("role", data.role);
+  navigate("/dashboard");
 
       alert("Login successful!");
     } catch (error) {
