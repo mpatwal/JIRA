@@ -6,6 +6,7 @@ import com.manisha.jira.repository.ProjectRepository;
 import com.manisha.jira.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -20,6 +21,7 @@ public class ProjectController {
 
     @Autowired
     private UserRepository userRepository;
+
 
     @PostMapping
     public ResponseEntity<Project> createProject(@RequestBody Project project,
