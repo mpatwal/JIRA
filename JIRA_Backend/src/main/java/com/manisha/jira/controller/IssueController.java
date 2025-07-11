@@ -51,7 +51,7 @@ public class IssueController {
         Project project = projectRepository.findById(projectId).orElseThrow();
         return ResponseEntity.ok(issueRepository.findByProject(project));
     }
-
+    //put is for update
     @PutMapping("/{id}/assign/{userId}")
     public ResponseEntity<Issue> assignIssue(@PathVariable Long id,
                                              @PathVariable Long userId) {
