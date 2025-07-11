@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+ 
 
 function Navbar() {
     const role = localStorage.getItem("role");
@@ -16,9 +17,7 @@ function Navbar() {
     if (role === "ADMIN") {
         roleLinks = (
             <>
-                <Link to="/projects/add" className="hover:underline">Add Project</Link>
-                <Link to="/projects/view" className="hover:underline">View Projects</Link>
-                <Link to="/projects/assign" className="hover:underline">Assign Project</Link>
+                
             </>
         );
     } else if (role === "DEVELOPER") {
@@ -58,7 +57,7 @@ function Navbar() {
             {token && (
                 <>
                     <Link to="/dashboard" className="hover:underline">Dashboard</Link>
-                    {roleLinks} {/* 🧠 Insert role-specific links here */}
+                    {roleLinks}
                     <button onClick={handleLogout} className="hover:underline">Logout</button>
                 </>
             )}

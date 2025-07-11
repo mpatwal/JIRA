@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Register } from './components/auth/Register'
 import {Login}  from './components/auth/Login'
 import { Dashboard}  from './components/pages/Dashboard';
-
+import AddProject from './components/projects/AddProject';
+import ViewProject from './components/projects/ViewProject';
 function App() {
   return (
     <Router>
@@ -17,6 +18,8 @@ function App() {
           <Route path="/" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/projects/add" element={<AddProject />} />
+          <Route path="/projects/view" element={<ViewProject />} />
         </Routes>
       </div>
     </Router>
