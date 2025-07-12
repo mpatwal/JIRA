@@ -1,4 +1,4 @@
-import Navbar from "../sections/Navbar";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import api from "../services/api";
 
@@ -8,38 +8,57 @@ function CreateIssue() {
     const [form, setForm] = useState({
         title: "",
         description: "",
-        projectId: "",
+        projectId: null,
         priority: "MEDIUM"
     });
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setForm((prev) => ({
-            ...prev,
-            [name]: value
-        }));
-    };
+  const { name, value } = e.target;
+  setForm((prev) => ({
+    ...prev,
+    [name]: name === "projectId" ? parseInt(value) : value,
+  }));
+};
 
-    useEffect(() => {
-        api.get("http://localhost:8081/api/projects", { 
-        }).then(response => {
-            setProjects(response.data);
-        }).catch(error => {
-            console.error("Error fetching projects:", error);
-        });
-    }, [token]);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+ useEffect(() => {
+    const fetchProjects = async () => {
+        const token = localStorage.getItem("token");
         try {
-            const response = await api.post("/issue", form);
-            console.log("Issue created successfully:", response.data);
-            alert("Issue created successfully!");
+            const response = await axios.get("http://localhost:8081/api/projects", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setProjects(response.data); // no .content here
         } catch (error) {
-            console.error("Error creating issue:", error);
-            alert("Error: " + error.message);
+            console.error("Error fetching user projects:", error);
         }
     };
+
+    fetchProjects(); // ✅ no currentPage
+}, []);
+
+    const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const token = localStorage.getItem("token");
+
+    try {
+        const response = await axios.post("http://localhost:8081/api/issue", form, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        });
+        console.log("Issue created successfully:", response.data);
+        alert("Issue created successfully!");
+    } catch (error) {
+        console.error("Error creating issue:", error);
+        alert("Error: " + error.message);
+    }
+};
+
 
     return (
         <div>

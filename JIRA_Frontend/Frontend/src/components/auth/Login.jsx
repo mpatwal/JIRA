@@ -33,13 +33,17 @@ const navigate = useNavigate();
         throw new Error(`Login failed! status: ${response.status}`);
       }
 
-      const data = await response.json(); 
-      console.log("Login Success. Token:", data.token);
-      console.log(data)
-      
-      localStorage.setItem("token",data.token);
-      localStorage.setItem("role", data.role);
-  navigate("/dashboard");
+     const data = await response.json(); 
+console.log("Login Success. Token:", data.token);
+console.log(data);
+
+localStorage.setItem("token", data.token);
+localStorage.setItem("role", data.role);
+localStorage.setItem("userId", data.userId); // ✅ FIXED HERE
+
+navigate("/dashboard");
+
+
 
       alert("Login successful!");
     } catch (error) {
