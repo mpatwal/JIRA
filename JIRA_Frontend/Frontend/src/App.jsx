@@ -6,6 +6,8 @@ import {Login}  from './components/auth/Login'
 import { Dashboard}  from './components/pages/Dashboard';
 import AddProject from './components/projects/AddProject';
 import ViewProject from './components/projects/ViewProject';
+import CreateIssue from './components/projects/CreateIssue';
+import { IssueDisplay } from './components/sections/IssueDisplay';
 function App() {
   return (
     <Router>
@@ -20,6 +22,8 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/projects/add" element={<AddProject />} />
           <Route path="/projects/view" element={<ViewProject />} />
+          <Route path="/create-issue" element={<CreateIssue />} />
+          <Route path='/project-issue' element={<IssueDisplay />} />
         </Routes>
       </div>
     </Router>

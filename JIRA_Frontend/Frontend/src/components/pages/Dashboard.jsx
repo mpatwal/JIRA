@@ -22,6 +22,14 @@ export const Dashboard = () => {
         navigate("/projects/view");
     };
 
+    const handleCreateIssue = () => {
+        navigate("/create-issue");
+    };
+
+    const handleAssignedProjects = () => {
+        navigate("/project-issue");
+    };
+
     return (
         <div>
             <Navbar />
@@ -48,6 +56,28 @@ export const Dashboard = () => {
                             className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
                         >
                             View Projects
+                        </button>
+                        <button
+                            onClick={handleCreateIssue}
+                            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
+                        >
+                            Create Issue
+                        </button>
+                    </div>
+                )}
+                {role =="DEVELOPER" && (<div className="mt-6 space-x-4">
+                        
+                        <button
+                            onClick={handleAssignedProjects}
+                            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+                        >
+                            View Issue
+                        </button>
+                        <button
+                            onClick={handleCreateIssue}
+                            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
+                        >
+                            Manage Issue
                         </button>
                     </div>
                 )}
