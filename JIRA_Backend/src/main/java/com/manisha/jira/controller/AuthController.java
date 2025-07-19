@@ -53,6 +53,6 @@ public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest) 
         UserDetails userDetails = userDetailService.loadUserByUsername(authRequest.getUsername());
         User user = userRepository.findByUsername(authRequest.getUsername()).orElseThrow();
         String token = jwtUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new AuthResponse(token, user.getRole().toString()));
+        return ResponseEntity.ok(new AuthResponse(token, user.getRole().toString(), user.getId()));
     }
 }
