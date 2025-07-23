@@ -3,7 +3,7 @@ import { useState } from "react";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
 
-const AddProject = () => {
+export const AddProject = () => {
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -84,5 +84,3 @@ const AddProject = () => {
     </div>
   );
 };
-
-export default AddProject;
