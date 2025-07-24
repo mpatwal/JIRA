@@ -4,10 +4,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Register } from "./components/auth/Register";
 import { Login } from "./components/auth/Login";
 import { Dashboard } from "./components/pages/Dashboard";
-import AddProject from "./components/projects/AddProject";
-import ViewProject from "./components/projects/ViewProject";
-import CreateIssue from "./components/projects/CreateIssue";
-import { IssueDisplay } from "./components/sections/IssueDisplay";
+import AddProject from "./components/pages/AddProject";
+import ViewProject from "./components/pages/ViewProject";
+import CreateIssue from "./components/pages/CreateIssue";
+import { IssueDisplay } from "./components/pages/IssueDisplay";
 function App() {
   return (
     <Router>
@@ -20,10 +20,27 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/projects/add" element={<AddProject />} />
+
           <Route path="/projects/view" element={<ViewProject />} />
-          <Route path="/create-issue" element={<CreateIssue />} />
           <Route path="/project-issue" element={<IssueDisplay />} />
+
+          {/* Protecting routes for admin */}
+          <Route
+            path="/projects/new"
+            element={
+              <AdminRoutes>
+                <AddProject />
+              </AdminRoutes>
+            }
+          />
+          <Route
+            path="/issues/new"
+            element={
+              <AdminRoutes>
+                <CreateIssue />
+              </AdminRoutes>
+            }
+          />
         </Routes>
       </div>
     </Router>
