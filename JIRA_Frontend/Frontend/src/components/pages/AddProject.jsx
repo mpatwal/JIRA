@@ -84,3 +84,4 @@ export const AddProject = () => {
     </div>
   );
 };
+export default AddProject;

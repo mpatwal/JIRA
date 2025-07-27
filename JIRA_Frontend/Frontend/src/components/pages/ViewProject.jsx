@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IssueDisplay } from "./IssuesDisplay";
+import { IssueDisplay } from "./IssueDisplay";
 import api from "../services/api";
 
 export const ProjectsDisplay = () => {
@@ -91,3 +91,4 @@ export const ProjectsDisplay = () => {
     </div>
   );
 };
+export default ProjectsDisplay;

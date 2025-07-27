@@ -8,6 +8,8 @@ import AddProject from "./components/pages/AddProject";
 import ViewProject from "./components/pages/ViewProject";
 import CreateIssue from "./components/pages/CreateIssue";
 import { IssueDisplay } from "./components/pages/IssueDisplay";
+import AdminRoutes from "./components/auth/AdminRoutes";
+
 function App() {
   return (
     <Router>
@@ -23,6 +25,22 @@ function App() {
 
           <Route path="/projects/view" element={<ViewProject />} />
           <Route path="/project-issue" element={<IssueDisplay />} />
+          <Route
+            path="/create-issue"
+            element={
+              <AdminRoutes>
+                <CreateIssue />
+              </AdminRoutes>
+            }
+          />
+          <Route
+            path="/projects/add"
+            element={
+              <AdminRoutes>
+                <AddProject />
+              </AdminRoutes>
+            }
+          />
 
           {/* Protecting routes for admin */}
           <Route
@@ -33,6 +51,7 @@ function App() {
               </AdminRoutes>
             }
           />
+
           <Route
             path="/issues/new"
             element={

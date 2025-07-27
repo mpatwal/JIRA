@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import mybg from './bk.jpg';
+import mybg from "./bk.jpg";
 export const Login = () => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,22 +28,20 @@ const navigate = useNavigate();
         },
         body: JSON.stringify(formData),
       });
-      
+
       if (!response.ok) {
         throw new Error(`Login failed! status: ${response.status}`);
       }
 
-     const data = await response.json(); 
-console.log("Login Success. Token:", data.token);
-console.log(data);
+      const data = await response.json();
+      console.log("Login Success. Token:", data.token);
+      console.log(data);
 
-localStorage.setItem("token", data.token);
-localStorage.setItem("role", data.role);
-localStorage.setItem("userId", data.userId); // ✅ FIXED HERE
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("role", data.role);
+      localStorage.setItem("userId", data.userId); // ✅ FIXED HERE
 
-navigate("/dashboard");
-
-
+      navigate("/dashboard");
 
       alert("Login successful!");
     } catch (error) {
@@ -53,7 +51,8 @@ navigate("/dashboard");
   };
 
   return (
-    <div style={{ backgroundImage: `url(${mybg})` }}
+    <div
+      style={{ backgroundImage: `url(${mybg})` }}
       className="min-h-screen w-full bg-cover bg-center bg-no-repeat bg-fixed flex flex-col relative overflow-hidden"
     >
       <div className="relative z-20 flex flex-1 items-center justify-end pr-8 md:pr-16 pb-8">
@@ -61,18 +60,30 @@ navigate("/dashboard");
           {/* Form Header */}
           <div className="text-center mb-8">
             <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+              <svg
+                className="w-8 h-8 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+                />
               </svg>
             </div>
             <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
               Login
             </h2>
-        
           </div>
-      <form className="space-y-5" onSubmit={handleSubmit}>
-        <div className="group">
-              <label htmlFor="username" className="block text-sm font-semibold text-gray-700 mb-2">
+          <form className="space-y-5" onSubmit={handleSubmit}>
+            <div className="group">
+              <label
+                htmlFor="username"
+                className="block text-sm font-semibold text-gray-700 mb-2"
+              >
                 Username
               </label>
               <div className="relative">
@@ -87,15 +98,28 @@ navigate("/dashboard");
                   placeholder="Enter your username"
                 />
                 <div className="absolute left-4 top-3.5 text-gray-400">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+                    />
                   </svg>
                 </div>
               </div>
             </div>
 
-        <div className="group">
-              <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-2">
+            <div className="group">
+              <label
+                htmlFor="password"
+                className="block text-sm font-semibold text-gray-700 mb-2"
+              >
                 Password
               </label>
               <div className="relative">
@@ -110,34 +134,44 @@ navigate("/dashboard");
                   placeholder="Your password"
                 />
                 <div className="absolute left-4 top-3.5 text-gray-400">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                    />
                   </svg>
                 </div>
               </div>
             </div>
 
-        <button
-          type="submit"
-          className="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700"
-        >
-          Login
-        </button>
-      </form>
-      {/* Footer */}
+            <button
+              type="submit"
+              className="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700"
+            >
+              Login
+            </button>
+          </form>
+          {/* Footer */}
           <div className="mt-6 text-center">
             <p className="text-gray-600">
-              Don't have an account?{' '}
+              Don't have an account?{" "}
               <Link
-                to="/"
+                to="/register"
                 className="text-blue-600 hover:text-purple-600 font-semibold transition-colors hover:underline"
               >
                 Sign Up
               </Link>
             </p>
           </div>
-    </div>
-    </div>
+        </div>
+      </div>
     </div>
   );
 };
